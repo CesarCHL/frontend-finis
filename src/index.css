@@ -1,0 +1,4 @@
+@import "tailwindcss";
+
+/* El modo oscuro se controla con la clase "dark" en <html> (botón de tema). */
+@custom-variant dark (&:where(.dark, .dark *));
