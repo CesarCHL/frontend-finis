@@ -35,6 +35,7 @@ function App() {
   const [mes, setMes] = useState(hoy.getMonth() + 1)
   const [anio, setAnio] = useState(hoy.getFullYear())
   const [alcanceSel, setAlcanceSel] = useState('yo')
+  const [categoriaInicial, setCategoriaInicial] = useState('')
 
   const perfil = useGql<{ me: Usuario | null }>(ME, undefined, sesion)
 
@@ -83,7 +84,7 @@ function App() {
   const alcance = argumentosAlcance(valido ? alcanceSel : 'yo')
 
   return (
-    <div className="min-h-screen bg-slate-100 text-slate-800 dark:bg-slate-900 dark:text-slate-100">
+    <div className="min-h-screen bg-[#fbf4ed] text-[#10203f] dark:bg-slate-900 dark:text-slate-100">
       <Navbar
         nombre={usuario?.name ?? ''}
         oscuro={oscuro}
@@ -91,9 +92,9 @@ function App() {
         onSalir={salir}
       />
 
-      <main className="mx-auto grid max-w-6xl grid-cols-1 gap-6 p-4 md:grid-cols-4">
+      <main className="finis-layout mx-auto grid max-w-7xl grid-cols-1 gap-6 p-4 md:grid-cols-4">
         <div className="md:col-span-1">
-          <Sidebar seleccionada={seccion} onSeleccionar={setSeccion} />
+          <Sidebar seleccionada={seccion} onSeleccionar={(destino) => { setCategoriaInicial(''); setSeccion(destino) }} />
         </div>
 
         <section className="space-y-4 md:col-span-3">
@@ -138,10 +139,10 @@ function App() {
               )}
 
               {seccion === 'dashboard' && (
-                <DashboardPage periodo={periodo} alcance={alcance} />
+                <DashboardPage periodo={periodo} alcance={alcance} onVerMovimientos={(categoriaId) => { setCategoriaInicial(categoriaId ?? ''); setSeccion('movimientos') }} />
               )}
               {seccion === 'movimientos' && (
-                <MovimientosPage periodo={periodo} alcance={alcance} usuario={usuario} />
+                <MovimientosPage periodo={periodo} alcance={alcance} usuario={usuario} categoriaInicial={categoriaInicial} />
               )}
               {seccion === 'establecimientos' && <EstablecimientosPage />}
               {seccion === 'categorias' && <CategoriasPage />}

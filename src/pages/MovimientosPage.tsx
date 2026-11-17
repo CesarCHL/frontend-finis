@@ -16,6 +16,7 @@ interface MovimientosPageProps {
   periodo: Periodo
   alcance: Alcance
   usuario: Usuario
+  categoriaInicial?: string
 }
 
 function hoyISO() {
@@ -23,7 +24,7 @@ function hoyISO() {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
 }
 
-function MovimientosPage({ periodo, alcance, usuario }: MovimientosPageProps) {
+function MovimientosPage({ periodo, alcance, usuario, categoriaInicial = '' }: MovimientosPageProps) {
   const [limite, setLimite] = useState(PAGINA)
   const movs = useGql<{ transactions: Movimiento[] }>(TRANSACTIONS, {
     ...periodo,
@@ -33,7 +34,7 @@ function MovimientosPage({ periodo, alcance, usuario }: MovimientosPageProps) {
   const cats = useGql<{ categories: Categoria[] }>(CATEGORIES)
 
   const [busqueda, setBusqueda] = useState('')
-  const [filtroCategoria, setFiltroCategoria] = useState('')
+  const [filtroCategoria, setFiltroCategoria] = useState(categoriaInicial)
   const [detalle, setDetalle] = useState<Movimiento | null>(null)
 
   // Formulario de registro manual

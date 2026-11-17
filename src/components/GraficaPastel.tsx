@@ -1,12 +1,6 @@
 const COLORES = [
-  '#10b981',
-  '#3b82f6',
-  '#f59e0b',
-  '#ef4444',
-  '#8b5cf6',
-  '#ec4899',
-  '#14b8a6',
-  '#84cc16',
+  '#b85e2e', '#cd8155', '#dda17e', '#e8bea5',
+  '#efd4c2', '#a74a27', '#d3946f', '#f2e4d6',
 ]
 
 interface Rebanada {
