@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { gql, saveTokens, type Tokens } from '../api/client'
 import { LOGIN, REGISTER } from '../api/operations'
 import MensajeError from '../components/MensajeError'
-import { BOTON, INPUT } from '../lib/estilos'
 
 interface LoginPageProps {
   onEntrar: () => void
@@ -35,19 +34,23 @@ function LoginPage({ onEntrar }: LoginPageProps) {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-100 p-4 dark:bg-slate-900">
+    <div className="finis-auth">
       <form
         onSubmit={enviar}
-        className="w-full max-w-sm space-y-4 rounded-xl bg-white p-6 shadow dark:bg-slate-800 dark:text-slate-100"
+        className="finis-auth-card"
       >
-        <h1 className="text-center text-2xl font-bold">💰 Finis</h1>
-        <p className="text-center text-sm text-slate-500">
+        <h1 className="finis-auth-brand">FINIS</h1>
+        <p className="finis-auth-kicker">FINANZAS PERSONALES Y FAMILIARES</p>
+        <div className="finis-auth-divider" />
+        <h2 className="finis-auth-title">
           {registro ? 'Crea tu cuenta' : 'Inicia sesión'}
-        </p>
+        </h2>
+        <p className="finis-auth-subtitle">{registro ? 'Comienza a organizar tus finanzas.' : 'Tu dinero, más claro.'}</p>
         {error && <MensajeError mensaje={error} />}
         {registro && (
           <input
-            className={INPUT}
+            className="finis-auth-input"
+            aria-label="Nombre"
             placeholder="Nombre"
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
@@ -55,7 +58,8 @@ function LoginPage({ onEntrar }: LoginPageProps) {
           />
         )}
         <input
-          className={INPUT}
+          className="finis-auth-input"
+          aria-label="Correo"
           type="email"
           placeholder="Correo"
           value={email}
@@ -63,20 +67,21 @@ function LoginPage({ onEntrar }: LoginPageProps) {
           required
         />
         <input
-          className={INPUT}
+          className="finis-auth-input"
+          aria-label="Contraseña"
           type="password"
           placeholder="Contraseña"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button type="submit" disabled={enviando} className={`${BOTON} w-full`}>
+        <button type="submit" disabled={enviando} className="finis-auth-submit">
           {enviando ? 'Enviando...' : registro ? 'Registrarme' : 'Entrar'}
         </button>
         <button
           type="button"
           onClick={() => setRegistro((r) => !r)}
-          className="w-full text-sm text-emerald-600 hover:underline"
+          className="finis-auth-switch"
         >
           {registro ? 'Ya tengo cuenta' : 'Crear una cuenta'}
         </button>
